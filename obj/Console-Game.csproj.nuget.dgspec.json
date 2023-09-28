@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj": {}
+    "c:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj": {}
   },
   "projects": {
-    "C:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj": {
+    "c:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj",
+        "projectUniqueName": "c:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj",
         "projectName": "Console-Game",
-        "projectPath": "C:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj",
+        "projectPath": "c:\\Users\\garry\\Documents\\GitHub\\Console-Game\\Console-Game.csproj",
         "packagesPath": "C:\\Users\\garry\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\garry\\Documents\\GitHub\\Console-Game\\obj\\",
+        "outputPath": "c:\\Users\\garry\\Documents\\GitHub\\Console-Game\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\garry\\AppData\\Roaming\\NuGet\\NuGet.Config"

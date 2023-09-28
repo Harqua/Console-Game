@@ -21,11 +21,11 @@ namespace WahooRPGGame
                 int nextLvlExp = ExpToNextLvl();
                 if (ExpPoints >= nextLvlExp)
                 {
-
-                    Level++;
-                    Console.WriteLine($"You are now level {Level}");
+                    Console.WriteLine("Congratulations! You leveled up!!!");
+                    Console.WriteLine($"Level: {Level} -> {Level + 1}");
                     Console.WriteLine($"Attack: {Attack} -> {Attack + 4}");
                     Console.WriteLine($"Defense: {Defense} -> {Defense + 2}");
+                    Level++;
                     Attack += 4;
                     Defense += 2;
                     ExpPoints -= nextLvlExp;
@@ -50,14 +50,15 @@ namespace WahooRPGGame
             }
             private void StartBattle()
             {
-                Console.WriteLine($"A wild {Enemy.Name} appeared");
+                Console.Clear();
                 bool isBattleOver = false;
-                bool isLose = false;
 
                 while (!isBattleOver)
                 {
-                    
-                    DisplayStatus();
+                    Console.WriteLine("===" + Title + "===");
+                    Console.WriteLine(Description);
+                    Console.WriteLine($"\nA wild {Enemy.Name} appeared");
+                    DisplayChars();
                     DisplayBattleOptions();
                     string action = Console.ReadLine();
 
@@ -70,6 +71,10 @@ namespace WahooRPGGame
                             PerformDefense();
                             break;
                         case "3":
+                            PerformStatCheck();
+                            break;
+                        case "4":
+                            isBattleOver = true;
                             PerformRun();
                             break;
                         default:
@@ -81,34 +86,34 @@ namespace WahooRPGGame
                     if (PlayerChar.Health <= 0)
                     {
                         isBattleOver = true;
-                        isLose = true;
                         Console.WriteLine("O dem u ded...");
                     }
                     else if (Enemy.Health <= 0)
                     {
                         isBattleOver = true;
                         Console.WriteLine($"Congratulations!!! You defeated The {Enemy.Name} and gained 100 XP Points");
+                        PlayerChar.ExpPoints += 100;
+                        PlayerChar.LvlUp();
                     }
 
                 }
-                if (!isLose)
-                {
-                    PlayerChar.ExpPoints += 100;
-                    PlayerChar.LvlUp();
-                }
+
+
             }
 
-            private void DisplayStatus()
+            private void DisplayChars()
             {
-                Console.WriteLine($"Your Current Health: {PlayerChar.Health}");
-                Console.WriteLine($"Enemy Current Health: {Enemy.Health}");
+                Console.WriteLine($"{PlayerChar.Name} Current Health: {PlayerChar.Health}");
+                Console.WriteLine($"{Enemy.Name} Current Health: {Enemy.Health}");
             }
+            
             private void DisplayBattleOptions()
             {
                 Console.WriteLine("Choose your action:");
                 Console.WriteLine("1. Attack");
                 Console.WriteLine("2. Defense");
-                Console.WriteLine("3. Run");
+                Console.WriteLine("3. Stats");
+                Console.WriteLine("4. Run");
             }
             private void PerformAttack()
             {
@@ -131,10 +136,25 @@ namespace WahooRPGGame
                 EnemyAttack();
                 PlayerChar.Defense -= 5;
             }
-            private bool PerformRun()
+            private void PerformStatCheck()
+            {
+                int nextLevel = PlayerChar.Level *100; 
+                Console.WriteLine($"==={PlayerChar.Name}===");
+                Console.WriteLine($"Level: {PlayerChar.Level}");
+                Console.WriteLine($"Attack: {PlayerChar.Attack}");
+                Console.WriteLine($"Defense: {PlayerChar.Defense}");
+                Console.WriteLine($"EXP Points: {PlayerChar.ExpPoints}/{PlayerChar.Level*100}");
+
+                Console.WriteLine("\n");
+
+                Console.WriteLine($"==={Enemy.Name}===");
+                Console.WriteLine($"Level: {Enemy.Level}");
+                Console.WriteLine($"Attack: {Enemy.Attack}");
+                Console.WriteLine($"Defense: {Enemy.Defense}");
+            }
+            private void PerformRun()
             {
                 Console.WriteLine("You ran from the battle!");
-                return true;
 
             }
             private void EnemyAttack()
@@ -154,11 +174,41 @@ namespace WahooRPGGame
             }
         }
 
+        static void DisplayMainMenu()
+        {
+            Console.Clear();
+            Console.WriteLine("===Main Menu===");
+            Console.WriteLine("1. New Game");
+            Console.WriteLine("2. Load Game (Not Implemented Yet)");
+            Console.WriteLine("3. Exit");
+            Console.Write("Select an option: ");
+            string input = Console.ReadLine();
+
+            if (input == "1")
+            {
+                Console.WriteLine("Starting new game...");
+            }
+            else if (input == "2")
+            {
+                Console.WriteLine("Not Implemented Just Yet");
+                DisplayMainMenu();
+            }
+            else if (input == "3")
+            {
+                Environment.Exit(0);
+            }
+            else
+            {
+                Console.WriteLine("Invalid Input. Try Again.");
+                DisplayMainMenu();
+            }
+        }
 
         static void Main()
         {
+            Console.Clear();
             //Game Start
-            Console.WriteLine("Welcome to WahooLand!");
+            Console.WriteLine("===Welcome to WahooLand!===");
             Console.Write("Please enter your name: ");
             string heroName = Console.ReadLine();
 
@@ -168,7 +218,8 @@ namespace WahooRPGGame
                 Name = heroName,
                 Health = 100,
                 Attack = 10,
-                Defense = 5
+                Defense = 5,
+                Level = 1
             };
             Character enemyChaptOne = new Character
             {
@@ -188,10 +239,13 @@ namespace WahooRPGGame
                 Enemy = enemyChaptOne
             };
 
+            //Main Menu
+            DisplayMainMenu();
+
 
             //Chapter 1 gameplay
             chapter1.StartChapter();
-            Console.WriteLine($"Level: {playerCharacter.Level}");
+
 
 
             //Game Ends
